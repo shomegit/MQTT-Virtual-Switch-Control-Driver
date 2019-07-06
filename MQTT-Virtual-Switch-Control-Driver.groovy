@@ -60,19 +60,21 @@
 
     // Parse incoming device messages to generate events
     def parse(String description) {
-       log.debug description
-       //log.debug interfaces.mqtt.parseMessage(description)
-    def mqttInt = interfaces.mqtt
-    def response = mqttInt.parseMessage(description)
-        if (response.get('topic') == settings?.topicSub){
-        if (response.get('payload').contains("on")){
-            sendEvent(name: "switch", value: "on")
-            }
-        if (responce.get('payload').contains("off")){
+  	Date date = new Date(); 
+	topic = interfaces.mqtt.parseMessage(description)
+
+        log.debug topic
+        
+      
+       if (topic.get('payload').contains("ON")){
+           sendEvent(name: "switch", value: "on")
+          }
+        if (topic.get('payload').contains("OFF")){
             sendEvent(name: "switch", value: "off")
-            }
+           
         }
     }
+
 
     def updated() {
         if (logEnable) log.info "Updated..."
@@ -85,22 +87,23 @@
     }
 
 
-    def initialize() {
-    	if (logEnable) runIn(900,logsOff)
-    	try {
-            //open connection
-            def mqttInt = interfaces.mqtt
-    		mqttbroker = "tcp://" + settings?.MQTTBroker + ":1883"
-            mqttInt.connect(mqttbroker, "hubitat", settings?.username,settings?.password)
-            //give it a chance to start
-            pauseExecution(1000)
-            log.info "Connection established"
-    		if (logEnable) log.debug "Subscribed to: ${settings?.topicSub}"
-            mqttInt.subscribe(settings?.topicSub)
-        } catch(e) {
-            if (logEnable) log.debug "Initialize error: ${e.message}"
-        }
+def initialize() {
+	if (logEnable) runIn(900,logsOff)
+	try {
+        def mqttInt = interfaces.mqtt
+        //open connection
+		mqttbroker = "tcp://" + settings?.MQTTBroker + ":1883"
+        mqttInt.connect(mqttbroker, "hubitat", settings?.username,settings?.password)
+        //give it a chance to start
+        pauseExecution(1000)
+        log.info "Connection established"
+		if (logEnable) log.debug "Subscribed to: ${settings?.topicSub}"
+        mqttInt.subscribe(settings?.topicSub)
+          
+    } catch(e) {
+        if (logEnable) log.debug "Initialize error: ${e.message}"
     }
+}
 
 
     def mqttClientStatus(String status){
@@ -110,4 +113,15 @@
     def logsOff(){
         log.warn "Debug logging disabled."
         device.updateSetting("logEnable",[value:"false",type:"bool"])
+    }
+
+
+def off() {
+ //   log.debug "off()"
+	sendEvent(name: "switch", value: "off")
+  }
+
+def on() {
+   // log.debug "on()"
+	sendEvent(name: "switch", value: "on")
     }
