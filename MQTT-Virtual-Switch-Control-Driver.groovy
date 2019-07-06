@@ -31,7 +31,7 @@
  */
 
 metadata {
-    definition (name: "MQTT Virtual Switch Control Driver", namespace: "MQTT Drivers", author: "Helene Bor", importURL: "https://raw.githubusercontent.com/PrayerfulDrop/Hubitat/master/MQTT/SaltTank-Sonic-MQTT/Generic%20MQTT%20Driver.groovy") {
+    definition (name: "MQTT Virtual Switch Control Driver", namespace: "MQTT Drivers", author: "Helene Bor", importURL: "https://raw.githubusercontent.com/shomegit/MQTT-Virtual-Switch-Control-Driver/master/MQTT-Virtual-Switch-Control-Driver.groovy") {
         capability "Initialize"
         capability "Switch"
         
