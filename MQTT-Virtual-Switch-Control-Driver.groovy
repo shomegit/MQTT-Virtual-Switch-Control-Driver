@@ -31,7 +31,7 @@
      */
 
     metadata {
-        definition (name: "MQTT Virtual Switch Control Driver", namespace: "MQTT Drivers", author: "Helene Bor", importURL: "https://raw.githubusercontent.com/shomegit/MQTT-Virtual-Switch-Control-Driver/master/MQTT-Virtual-Switch-Control-Driver.groovy") {
+        definition (name: "MQTT Virtual Switch Control Driver", namespace: "HBor", author: "Helene Bor", importURL: "https://raw.githubusercontent.com/shomegit/MQTT-Virtual-Switch-Control-Driver/master/MQTT-Virtual-Switch-Control-Driver.groovy") {
             capability "Initialize"
             capability "Switch"
             
@@ -59,12 +59,8 @@
 
     // Parse incoming device messages to generate events
     def parse(String description) {
-  	Date date = new Date(); 
 	topic = interfaces.mqtt.parseMessage(description)
-
-        log.debug topic
         
-      
        if (topic.get('payload').contains("ON")){
            sendEvent(name: "switch", value: "on")
           }
