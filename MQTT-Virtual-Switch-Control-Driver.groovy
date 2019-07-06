@@ -1,7 +1,7 @@
 /**
  *  ****************  MQTT Virtual Switch Control Driver  ****************
  *
- *  importUrl: "https://raw.githubusercontent.com/PrayerfulDrop/Hubitat/master/MQTT/SaltTank-Sonic-MQTT/Generic%20MQTT%20Driver.groovy"
+ *  importUrl: "https://raw.githubusercontent.com/shomegit/MQTT-Virtual-Switch-Control-Driver/master/MQTT-Virtual-Switch-Control-Driver.groovy"
  *
  *  Design Usage:
  *  This driver is a MQTT Virtual Switch Control Driver to pull and post to a MQTT broker.
