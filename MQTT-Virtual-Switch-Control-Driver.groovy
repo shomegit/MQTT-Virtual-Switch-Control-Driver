@@ -96,7 +96,6 @@
             pauseExecution(1000)
             log.info "Connection established"
     		if (logEnable) log.debug "Subscribed to: ${settings?.topicSub}"
-            //interfaces.mqtt.subscribe(device, settings?.topicSub)
             mqttInt.subscribe(settings?.topicSub)
         } catch(e) {
             if (logEnable) log.debug "Initialize error: ${e.message}"
