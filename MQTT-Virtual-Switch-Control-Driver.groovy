@@ -28,6 +28,7 @@
  *  Changes:
  *
  *  1.0.0 - Initial release
+ *  1.0.1 - attempting to take value inputs
  */
 
 metadata {
@@ -61,7 +62,7 @@ def installed() {
 // Parse incoming device messages to generate events
 def parse(String description) {
    log.debug description
-   //log.debug interfaces.mqtt.parseMessage(description)
+   log.debug interfaces.mqtt.parseMessage(description)
     
 def response = interfaces.mqtt.parseMessage(description)
     if (response.get('topic') == settings?.topicSub){
@@ -96,7 +97,6 @@ def initialize() {
         pauseExecution(1000)
         log.info "Connection established"
 		if (logEnable) log.debug "Subscribed to: ${settings?.topicSub}"
-        //interfaces.mqtt.subscribe(device, settings?.topicSub)
         mqttInt.subscribe(settings?.topicSub)
     } catch(e) {
         if (logEnable) log.debug "Initialize error: ${e.message}"
@@ -112,3 +112,14 @@ def logsOff(){
     log.warn "Debug logging disabled."
     device.updateSetting("logEnable",[value:"false",type:"bool"])
 }
+
+
+def off() {
+ //   log.debug "off()"
+	sendEvent(name: "switch", value: "off")
+  }
+
+def on() {
+   // log.debug "on()"
+	sendEvent(name: "switch", value: "on")
+    }
